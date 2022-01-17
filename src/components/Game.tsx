@@ -1,9 +1,11 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {Button, StyleSheet, View} from 'react-native';
 import {Grid} from './Grid';
 import {Guesser} from './Guesser';
 import randomWords from 'random-words';
-import {NUM_LETTERS} from '../constants';
+import {NUM_GUESSES, NUM_LETTERS} from '../constants';
+import _ from 'lodash';
+import {GameState, GameStateBanner} from './GameStateBanner';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,7 +29,7 @@ function generateWord(): string {
 export function Game() {
   const [answer, setAnswer] = useState<string>(generateWord());
   const [guesses, setGuesses] = useState<string[]>([]);
-  console.log(answer);
+  const [gameState, setGameState] = useState<GameState>(GameState.IN_PROGRESS);
 
   const makeGuess = useCallback(
     word => {
@@ -42,8 +44,20 @@ export function Game() {
     setAnswer(generateWord());
   }, []);
 
+  useEffect(() => {
+    const lastGuess = _.last(guesses);
+    if (lastGuess === answer) {
+      setGameState(GameState.VICTORY);
+    } else if (_.size(guesses) >= NUM_GUESSES) {
+      setGameState(GameState.LOSS);
+    } else {
+      setGameState(GameState.IN_PROGRESS);
+    }
+  }, [guesses, answer]);
+
   return (
     <View style={styles.container}>
+      <GameStateBanner state={gameState} />
       <Grid answer={answer} guesses={guesses} />
       <View style={styles.guesserContainer}>
         <Guesser makeGuess={makeGuess} />
