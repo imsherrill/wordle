@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Grid} from './Grid';
+import {Guesser} from './Guesser';
 
 const styles = StyleSheet.create({
   container: {
@@ -12,10 +13,21 @@ const styles = StyleSheet.create({
 
 export function Game() {
   const [answer] = useState('beast');
-  const [guesses] = useState(['baces', 'mania', 'happy', undefined, undefined]);
+  const [guesses, setGuesses] = useState(['bases', 'mania', 'happy']);
+  console.log(guesses);
+
+  const makeGuess = useCallback(
+    word => {
+      const sanitizedWord = word.toLowerCase();
+      setGuesses([...guesses, sanitizedWord]);
+    },
+    [guesses],
+  );
+
   return (
     <View style={styles.container}>
       <Grid answer={answer} guesses={guesses} />
+      <Guesser makeGuess={makeGuess} />
     </View>
   );
 }
