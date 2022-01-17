@@ -11,6 +11,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     marginTop: 20,
   },
+  guesserContainer: {
+    marginTop: 50,
+  },
 });
 
 function generateWord(): string {
@@ -42,8 +45,10 @@ export function Game() {
   return (
     <View style={styles.container}>
       <Grid answer={answer} guesses={guesses} />
-      <Guesser makeGuess={makeGuess} />
-      <Button onPress={resetGame} title="Reset Game" />
+      <View style={styles.guesserContainer}>
+        <Guesser makeGuess={makeGuess} />
+        <Button onPress={resetGame} title="Reset Game" />
+      </View>
     </View>
   );
 }
