@@ -1,10 +1,12 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 
+const BOX_SIZE = 40;
+
 const styles = StyleSheet.create({
   container: {
-    height: 40,
-    width: 40,
+    height: BOX_SIZE,
+    width: BOX_SIZE,
     margin: 10,
   },
   textStyle: {
