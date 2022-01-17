@@ -2,6 +2,8 @@ import React, {useState, useCallback} from 'react';
 import {Button, StyleSheet, View} from 'react-native';
 import {Grid} from './Grid';
 import {Guesser} from './Guesser';
+import randomWords from 'random-words';
+import {NUM_LETTERS} from '../constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,10 +13,18 @@ const styles = StyleSheet.create({
   },
 });
 
+function generateWord(): string {
+  let word = '';
+  while (word.length !== NUM_LETTERS) {
+    word = randomWords({exactly: 1, maxLength: NUM_LETTERS})[0];
+  }
+  return word;
+}
+
 export function Game() {
-  const [answer, setAnswer] = useState('beast');
-  const [guesses, setGuesses] = useState(['bases', 'mania', 'happy']);
-  console.log(guesses);
+  const [answer, setAnswer] = useState<string>(generateWord());
+  const [guesses, setGuesses] = useState<string[]>([]);
+  console.log(answer);
 
   const makeGuess = useCallback(
     word => {
@@ -26,7 +36,7 @@ export function Game() {
 
   const resetGame = useCallback(() => {
     setGuesses([]);
-    setAnswer('blahs');
+    setAnswer(generateWord());
   }, []);
 
   return (
