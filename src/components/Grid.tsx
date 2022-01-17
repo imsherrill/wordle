@@ -10,12 +10,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
 });
+interface GridProps {
+  answer: string;
+  guesses: string[];
+}
 
-export function Grid(): JSX.Element {
+export function Grid({answer, guesses}: GridProps): JSX.Element {
   return (
     <View style={styles.container}>
       {_.times(NUM_GUESSES, i => {
-        return <WordGuess key={i} />;
+        const guess = guesses[i];
+        return <WordGuess key={i} answer={answer} guess={guess} />;
       })}
     </View>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Grid} from './Grid';
 
@@ -11,9 +11,11 @@ const styles = StyleSheet.create({
 });
 
 export function Game() {
+  const [answer] = useState('beast');
+  const [guesses] = useState(['baces', 'mania', 'happy', undefined, undefined]);
   return (
     <View style={styles.container}>
-      <Grid />
+      <Grid answer={answer} guesses={guesses} />
     </View>
   );
 }

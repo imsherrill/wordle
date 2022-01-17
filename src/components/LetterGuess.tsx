@@ -3,7 +3,6 @@ import {View, StyleSheet, Text} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'green',
     height: 40,
     width: 40,
     margin: 10,
@@ -16,17 +15,49 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
     paddingTop: 7,
   },
+  correctGuess: {
+    backgroundColor: 'green',
+  },
+  incorrectGuess: {
+    backgroundColor: 'maroon',
+  },
+  inWordGuess: {
+    backgroundColor: '#8f8636',
+  },
+  noGuess: {
+    backgroundColor: 'navy',
+  },
 });
+
+function getGuessStyles(result: GuessResult): any {
+  switch (+result) {
+    case GuessResult.CORRECT:
+      return styles.correctGuess;
+    case GuessResult.IN_WORD:
+      return styles.inWordGuess;
+    case GuessResult.INCORRECT:
+      return styles.incorrectGuess;
+    case GuessResult.NO_GUESS:
+      return styles.noGuess;
+  }
+}
 
 interface LetterGuessProps {
   guess?: string;
-  answer: string;
+  result: GuessResult;
 }
 
-export function LetterGuess({guess}: LetterGuessProps): JSX.Element {
+export enum GuessResult {
+  CORRECT,
+  IN_WORD,
+  INCORRECT,
+  NO_GUESS,
+}
+
+export function LetterGuess({guess, result}: LetterGuessProps): JSX.Element {
   return (
-    <View style={styles.container}>
-      <Text style={styles.textStyle}>{guess}</Text>
+    <View style={[styles.container, getGuessStyles(result)]}>
+      <Text style={styles.textStyle}>{guess?.toUpperCase()}</Text>
     </View>
   );
 }
