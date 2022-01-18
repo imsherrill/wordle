@@ -8,9 +8,15 @@ const styles = StyleSheet.create({
   container: {},
   input: {
     backgroundColor: 'lightgrey',
+    flex: 1,
+    height: 20,
   },
   validationError: {
     color: 'red',
+  },
+  inputRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
 
@@ -50,12 +56,14 @@ export function Guesser({makeGuess}: GuesserProps): JSX.Element {
   return (
     <View style={styles.container}>
       {validationErrorSection}
-      <TextInput
-        style={styles.input}
-        value={guessCandidate}
-        onChangeText={onChangeText}
-      />
-      <Button onPress={onSubmit} title="Make Guess" />
+      <View style={styles.inputRow}>
+        <TextInput
+          style={styles.input}
+          value={guessCandidate}
+          onChangeText={onChangeText}
+        />
+        <Button onPress={onSubmit} title="->" />
+      </View>
     </View>
   );
 }

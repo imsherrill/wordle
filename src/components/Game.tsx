@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   guesserContainer: {
-    marginTop: 50,
+    marginTop: 20,
+    marginBottom: 10,
   },
   remainingLettersContainer: {
     flex: 1,
@@ -98,11 +99,11 @@ export function Game() {
       <Grid answer={answer} guesses={guesses} />
       <View style={styles.guesserContainer}>
         <Guesser makeGuess={makeGuess} />
-        <Button onPress={resetGame} title="Reset Game" />
       </View>
       <View style={styles.remainingLettersContainer}>
         <RemainingLetters alphabetTracker={alphabetTracker} />
       </View>
+      <Button onPress={resetGame} title="Reset Game" />
     </View>
   );
 }

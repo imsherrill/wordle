@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
     margin: 10,
     color: colors.text,
     fontWeight: '800',
+    textAlign: 'center',
   },
   knownIndex: {
     backgroundColor: colors.success,
@@ -42,7 +43,6 @@ interface RemainingLettersProps {
 export function RemainingLetters({
   alphabetTracker,
 }: RemainingLettersProps): JSX.Element {
-  console.log(alphabetTracker);
   return (
     <View style={styles.container}>
       {_.map(alphabetTracker, (state, letter) => {
