@@ -9,10 +9,11 @@ import {
 } from 'react-native';
 
 import {Game} from './src/components/Game';
+import {colors} from './src/constants';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#333333',
+    backgroundColor: colors.background,
     flex: 1,
   },
   keyboardView: {

@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
+import {colors} from '../constants';
 
 const BOX_SIZE = 40;
 
@@ -10,7 +11,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   textStyle: {
-    color: '#BBBBBB',
+    color: colors.text,
     fontWeight: '800',
     fontSize: 20,
     textAlign: 'center',
@@ -18,16 +19,16 @@ const styles = StyleSheet.create({
     paddingTop: 7,
   },
   correctGuess: {
-    backgroundColor: 'green',
+    backgroundColor: colors.success,
   },
   incorrectGuess: {
-    backgroundColor: 'maroon',
+    backgroundColor: colors.failure,
   },
   inWordGuess: {
-    backgroundColor: '#8f8636',
+    backgroundColor: colors.partial,
   },
   noGuess: {
-    backgroundColor: 'navy',
+    backgroundColor: colors.unknown,
   },
 });
 

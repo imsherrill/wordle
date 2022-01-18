@@ -2,12 +2,20 @@ import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    width: '100%',
+    alignItems: 'center',
+    paddingBottom: 10,
+  },
   victory: {
     color: 'green',
+    fontSize: 30,
+    fontWeight: '800',
   },
   loss: {
     color: 'red',
+    fontSize: 30,
+    fontWeight: '800',
   },
 });
 

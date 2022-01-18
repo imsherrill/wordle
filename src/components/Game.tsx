@@ -6,7 +6,13 @@ import randomWords from 'random-words';
 import {NUM_GUESSES, NUM_LETTERS} from '../constants';
 import _ from 'lodash';
 import {GameState, GameStateBanner} from './GameStateBanner';
-import {isValidWord} from '../utils';
+import {
+  AlphabetMap,
+  generateLetterMap,
+  isValidWord,
+  LetterTracker,
+} from '../utils';
+import {RemainingLetters} from './RemainingLetters';
 
 const styles = StyleSheet.create({
   container: {
@@ -16,6 +22,9 @@ const styles = StyleSheet.create({
   },
   guesserContainer: {
     marginTop: 50,
+  },
+  remainingLettersContainer: {
+    flex: 1,
   },
 });
 
@@ -31,18 +40,45 @@ export function Game() {
   const [answer, setAnswer] = useState<string>(generateWord());
   const [guesses, setGuesses] = useState<string[]>([]);
   const [gameState, setGameState] = useState<GameState>(GameState.IN_PROGRESS);
+  const [alphabetTracker, setAlphabetTracker] = useState<AlphabetMap>(
+    generateLetterMap(),
+  );
+
+  const updateTracker = useCallback(
+    guess => {
+      for (var i = 0; i < guess.length; i++) {
+        const letter: keyof AlphabetMap = guess.charAt(i);
+
+        if (alphabetTracker[letter] === LetterTracker.KNOWN_INDEX) {
+          continue;
+        }
+
+        if (answer[i] === letter) {
+          alphabetTracker[letter] = LetterTracker.KNOWN_INDEX;
+        } else if (_.includes(answer, letter)) {
+          alphabetTracker[letter] = LetterTracker.IN_WORD;
+        } else {
+          alphabetTracker[letter] = LetterTracker.NOT_IN_WORD;
+        }
+      }
+      setAlphabetTracker(alphabetTracker);
+    },
+    [alphabetTracker, answer],
+  );
 
   const makeGuess = useCallback(
     word => {
       const sanitizedWord = word.toLowerCase();
       setGuesses([...guesses, sanitizedWord]);
+      updateTracker(sanitizedWord);
     },
-    [guesses],
+    [guesses, updateTracker],
   );
 
   const resetGame = useCallback(() => {
     setGuesses([]);
     setAnswer(generateWord());
+    setAlphabetTracker(generateLetterMap());
   }, []);
 
   useEffect(() => {
@@ -63,6 +99,9 @@ export function Game() {
       <View style={styles.guesserContainer}>
         <Guesser makeGuess={makeGuess} />
         <Button onPress={resetGame} title="Reset Game" />
+      </View>
+      <View style={styles.remainingLettersContainer}>
+        <RemainingLetters alphabetTracker={alphabetTracker} />
       </View>
     </View>
   );
