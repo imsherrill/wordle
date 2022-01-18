@@ -95,7 +95,7 @@ export function Game() {
 
   return (
     <View style={styles.container}>
-      <GameStateBanner state={gameState} />
+      <GameStateBanner state={gameState} answer={answer} />
       <Grid answer={answer} guesses={guesses} />
       <View style={styles.guesserContainer}>
         <Guesser makeGuess={makeGuess} />

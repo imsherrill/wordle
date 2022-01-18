@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
+import {colors} from '../constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -8,7 +9,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   victory: {
-    color: 'green',
+    color: colors.success,
     fontSize: 30,
     fontWeight: '800',
   },
@@ -16,6 +17,9 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: 30,
     fontWeight: '800',
+  },
+  answer: {
+    color: colors.text,
   },
 });
 
@@ -27,9 +31,13 @@ export enum GameState {
 
 interface GameStateBannerProps {
   state: GameState;
+  answer: string;
 }
 
-export function GameStateBanner({state}: GameStateBannerProps): JSX.Element {
+export function GameStateBanner({
+  state,
+  answer,
+}: GameStateBannerProps): JSX.Element {
   if (state === GameState.IN_PROGRESS) {
     return <View />;
   }
@@ -44,6 +52,7 @@ export function GameStateBanner({state}: GameStateBannerProps): JSX.Element {
       return (
         <View style={styles.container}>
           <Text style={styles.loss}>You lose!</Text>
+          <Text style={styles.answer}>{answer}</Text>
         </View>
       );
   }

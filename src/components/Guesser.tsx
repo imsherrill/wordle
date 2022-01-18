@@ -31,11 +31,10 @@ export function Guesser({makeGuess}: GuesserProps): JSX.Element {
   );
 
   const onSubmit = useCallback(() => {
-    const isValid = isValidWord(guessCandidate);
-    if (!isValid) {
-      setValidationError('thats not an english word');
-    } else if (guessCandidate.length !== NUM_LETTERS) {
+    if (guessCandidate.length !== NUM_LETTERS) {
       setValidationError('5 letter guesses only!');
+    } else if (!isValidWord(guessCandidate)) {
+      setValidationError('thats not an english word');
     } else {
       makeGuess(guessCandidate);
       setGuessCandidate('');
