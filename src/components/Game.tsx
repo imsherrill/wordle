@@ -6,6 +6,7 @@ import randomWords from 'random-words';
 import {NUM_GUESSES, NUM_LETTERS} from '../constants';
 import _ from 'lodash';
 import {GameState, GameStateBanner} from './GameStateBanner';
+import {isValidWord} from '../utils';
 
 const styles = StyleSheet.create({
   container: {
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
 
 function generateWord(): string {
   let word = '';
-  while (word.length !== NUM_LETTERS) {
+  while (word.length !== NUM_LETTERS || !isValidWord(word)) {
     word = randomWords({exactly: 1, maxLength: NUM_LETTERS})[0];
   }
   return word;
