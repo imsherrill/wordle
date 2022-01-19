@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     color: colors.text,
     fontWeight: '800',
   },
-  baseGuess: {
+  baseKeyboardKey: {
     paddingHorizontal: 11,
     paddingVertical: 11,
     textAlign: 'center',
@@ -74,7 +74,7 @@ export function Keyboard({
                 onPress = () => onType(keyboardKey);
               }
               return (
-                <Letter
+                <KeyboardKey
                   letter={keyboardKey}
                   key={keyboardKey}
                   state={alphabetTracker[keyboardKey]}
@@ -89,7 +89,7 @@ export function Keyboard({
   );
 }
 
-function Letter({
+function KeyboardKey({
   letter,
   state,
   onPress,
@@ -108,12 +108,12 @@ function Letter({
 function getStateStyles(state: LetterTracker): any {
   switch (+state) {
     case LetterTracker.NO_GUESS:
-      return [styles.noGuess, styles.baseGuess];
+      return [styles.noGuess, styles.baseKeyboardKey];
     case LetterTracker.IN_WORD:
-      return [styles.inWord, styles.baseGuess];
+      return [styles.inWord, styles.baseKeyboardKey];
     case LetterTracker.KNOWN_INDEX:
-      return [styles.knownIndex, styles.baseGuess];
+      return [styles.knownIndex, styles.baseKeyboardKey];
     case LetterTracker.NOT_IN_WORD:
-      return [styles.notInWord, styles.baseGuess];
+      return [styles.notInWord, styles.baseKeyboardKey];
   }
 }
