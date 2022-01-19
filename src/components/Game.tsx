@@ -1,5 +1,5 @@
 import React, {useState, useCallback, useEffect} from 'react';
-import {Button, StyleSheet, View} from 'react-native';
+import {Button, StyleSheet, Text, View} from 'react-native';
 import {Grid} from './Grid';
 import {Guesser} from './Guesser';
 import randomWords from 'random-words';
@@ -40,6 +40,10 @@ function generateWord(): string {
 
 export function Game() {
   const [answer, setAnswer] = useState<string>(generateWord());
+  const [guessCandidate, setGuessCandidate] = useState('');
+  const [validationError, setValidationError] = useState<string | undefined>(
+    undefined,
+  );
   const [guesses, setGuesses] = useState<string[]>([]);
   const [gameState, setGameState] = useState<GameState>(GameState.IN_PROGRESS);
   const [alphabetTracker, setAlphabetTracker] = useState<AlphabetMap>(
@@ -68,17 +72,35 @@ export function Game() {
     [alphabetTracker, answer],
   );
 
-  const makeGuess = useCallback(
-    word => {
-      const sanitizedWord = word.toLowerCase();
+  const makeGuess = useCallback(() => {
+    if (guessCandidate.length !== NUM_LETTERS) {
+      setValidationError('5 letter guesses only!');
+    } else if (!isValidWord(guessCandidate)) {
+      setValidationError('thats not an english word');
+    } else {
+      const sanitizedWord = guessCandidate.toLowerCase();
       setGuesses([...guesses, sanitizedWord]);
       updateTracker(sanitizedWord);
+      setGuessCandidate('');
+    }
+  }, [guessCandidate, guesses, updateTracker]);
+
+  const addToGuess = useCallback(
+    letter => {
+      setGuessCandidate(guessCandidate + letter);
     },
-    [guesses, updateTracker],
+    [guessCandidate],
   );
+
+  const backspace = useCallback(() => {
+    if (guessCandidate.length > 0) {
+      setGuessCandidate(guessCandidate.substring(0, guessCandidate.length - 1));
+    }
+  }, [guessCandidate]);
 
   const resetGame = useCallback(() => {
     setGuesses([]);
+    setGuessCandidate('');
     setAnswer(generateWord());
     setAlphabetTracker(generateLetterMap());
   }, []);
@@ -98,11 +120,15 @@ export function Game() {
     <View style={styles.container}>
       <GameStateBanner state={gameState} answer={answer} />
       <Grid answer={answer} guesses={guesses} />
-      <View style={styles.guesserContainer}>
-        <Guesser makeGuess={makeGuess} />
-      </View>
+      <Text>{validationError}</Text>
+      <Text>{guessCandidate}</Text>
       <View style={styles.remainingLettersContainer}>
-        <Keyboard alphabetTracker={alphabetTracker} />
+        <Keyboard
+          alphabetTracker={alphabetTracker}
+          submit={makeGuess}
+          backspace={backspace}
+          onType={addToGuess}
+        />
       </View>
       <Button onPress={resetGame} title="Reset Game" />
     </View>

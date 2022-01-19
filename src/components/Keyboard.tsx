@@ -43,20 +43,39 @@ const KEYBOARD_LAYOUT = [
 
 interface KeyboardProps {
   alphabetTracker: AlphabetMap;
+  submit: onKeyboardButtonPress;
+  backspace: onKeyboardButtonPress;
+  onType: onKeyboardButtonPress;
 }
 
-export function Keyboard({alphabetTracker}: KeyboardProps): JSX.Element {
+type onKeyboardButtonPress = (arg0: any) => void;
+
+export function Keyboard({
+  alphabetTracker,
+  submit,
+  backspace,
+  onType,
+}: KeyboardProps): JSX.Element {
   return (
     <View style={styles.container}>
       {_.map(KEYBOARD_LAYOUT, keyboardRow => {
         return (
           <View style={styles.keyboardRow} key={keyboardRow}>
             {_.map(keyboardRow.split(' '), keyboardKey => {
+              let onPress: onKeyboardButtonPress;
+              if (keyboardKey === 'ent') {
+                onPress = submit;
+              } else if (keyboardKey === 'del') {
+                onPress = backspace;
+              } else {
+                onPress = () => onType(keyboardKey);
+              }
               return (
                 <Letter
                   letter={keyboardKey}
                   key={keyboardKey}
                   state={alphabetTracker[keyboardKey]}
+                  onPress={onPress}
                 />
               );
             })}
@@ -67,9 +86,17 @@ export function Keyboard({alphabetTracker}: KeyboardProps): JSX.Element {
   );
 }
 
-function Letter({letter, state}: {letter: string; state: LetterTracker}) {
+function Letter({
+  letter,
+  state,
+  onPress,
+}: {
+  letter: string;
+  state: LetterTracker;
+  onPress: onKeyboardButtonPress;
+}) {
   return (
-    <TouchableOpacity style={styles.letterContainer}>
+    <TouchableOpacity style={styles.letterContainer} onPress={onPress}>
       <Text style={getStateStyles(state)}>{letter.toUpperCase()}</Text>
     </TouchableOpacity>
   );
