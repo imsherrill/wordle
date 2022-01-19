@@ -12,6 +12,7 @@ import {
   LetterTracker,
 } from '../utils';
 import {Keyboard} from './Keyboard';
+import {ValidationDisplay} from './ValidationDisplay';
 
 const styles = StyleSheet.create({
   container: {
@@ -119,7 +120,7 @@ export function Game() {
     <View style={styles.container}>
       <GameStateBanner state={gameState} answer={answer} />
       <Grid answer={answer} guesses={guesses} guessCandidate={guessCandidate} />
-      <Text>{validationError}</Text>
+      <ValidationDisplay text={validationError} />
       <View style={styles.remainingLettersContainer}>
         <Keyboard
           alphabetTracker={alphabetTracker}
