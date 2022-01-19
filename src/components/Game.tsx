@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
   },
   gridContainer: {
     marginHorizontal: 20,
+    flex: 3,
   },
   keyboardContainer: {
     flex: 1,

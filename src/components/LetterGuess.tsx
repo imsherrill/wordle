@@ -23,13 +23,15 @@ const styles = StyleSheet.create({
     backgroundColor: colors.success,
   },
   incorrectGuess: {
-    backgroundColor: colors.failure,
+    backgroundColor: colors.absent,
   },
   inWordGuess: {
     backgroundColor: colors.partial,
   },
   noGuess: {
     backgroundColor: colors.unknown,
+    borderColor: colors.unknownBorder,
+    borderWidth: 2,
   },
 });
 

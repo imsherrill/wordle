@@ -12,14 +12,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginVertical: 7,
+    marginVertical: 2,
+  },
+  textStyle: {
+    color: colors.text,
+    fontWeight: '800',
   },
   baseGuess: {
     paddingHorizontal: 11,
     paddingVertical: 11,
-    color: colors.text,
-    fontWeight: '800',
     textAlign: 'center',
+    borderRadius: 3,
   },
   knownIndex: {
     backgroundColor: colors.success,
@@ -28,7 +31,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.partial,
   },
   noGuess: {
-    backgroundColor: colors.unknown,
+    backgroundColor: colors.noGuessKeyboard,
   },
   notInWord: {
     backgroundColor: colors.background,
@@ -96,8 +99,8 @@ function Letter({
   onPress: onKeyboardButtonPress;
 }) {
   return (
-    <TouchableOpacity style={styles.letterContainer} onPress={onPress}>
-      <Text style={getStateStyles(state)}>{letter.toUpperCase()}</Text>
+    <TouchableOpacity style={getStateStyles(state)} onPress={onPress}>
+      <Text style={styles.textStyle}>{letter.toUpperCase()}</Text>
     </TouchableOpacity>
   );
 }

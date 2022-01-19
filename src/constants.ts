@@ -2,10 +2,13 @@ export const NUM_LETTERS = 5;
 export const NUM_GUESSES = 6;
 
 export const colors = {
-  success: 'green',
+  success: '#538D4E',
   failure: 'maroon',
-  partial: '#8f8636',
-  unknown: 'navy',
-  text: '#BBBBBB',
-  background: '#333333',
+  partial: '#b59f3b',
+  absent: '#121214',
+  unknown: '#3a3a3c',
+  unknownBorder: 'grey',
+  text: '#D7DADC',
+  background: '#3a3a3c',
+  noGuessKeyboard: '#818384',
 };

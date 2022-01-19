@@ -4,7 +4,7 @@ import {colors} from '../constants';
 
 const styles = StyleSheet.create({
   text: {
-    color: 'red',
+    color: colors.failure,
     fontWeight: '800',
     textAlign: 'center',
     marginVertical: 10,
