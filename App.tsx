@@ -1,39 +1,7 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  StatusBar,
-  useColorScheme,
-  StyleSheet,
-  View,
-} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
 
-import {Game} from './src/components/Game';
-import {colors} from './src/constants';
+import {AppNavigator} from './src/AppNavigator';
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colors.background,
-    flex: 1,
-  },
-  innerView: {
-    flex: 1,
-  },
-});
-
-const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  return (
-    <NavigationContainer>
-      <SafeAreaView style={styles.container}>
-        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-        <View style={styles.innerView}>
-          <Game />
-        </View>
-      </SafeAreaView>
-    </NavigationContainer>
-  );
-};
-
-export default App;
+export default function App(): JSX.Element {
+  return <AppNavigator />;
+}
