@@ -11,4 +11,5 @@ export const colors = {
   text: '#D7DADC',
   background: '#3a3a3c',
   noGuessKeyboard: '#818384',
+  peri: '#6667ab',
 };
