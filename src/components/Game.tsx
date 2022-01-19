@@ -75,7 +75,7 @@ export function Game() {
 
   const makeGuess = useCallback(() => {
     if (guessCandidate.length !== NUM_LETTERS) {
-      setValidationError('5 letter guesses only!');
+      setValidationError(`${NUM_LETTERS} letter guesses only!`);
     } else if (!isValidWord(guessCandidate)) {
       setValidationError('thats not an english word');
     } else {
