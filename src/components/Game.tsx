@@ -13,6 +13,7 @@ import {
   LetterTracker,
 } from '../utils';
 import {RemainingLetters} from './RemainingLetters';
+import {Keyboard} from './Keyboard';
 
 const styles = StyleSheet.create({
   container: {
@@ -101,7 +102,7 @@ export function Game() {
         <Guesser makeGuess={makeGuess} />
       </View>
       <View style={styles.remainingLettersContainer}>
-        <RemainingLetters alphabetTracker={alphabetTracker} />
+        <Keyboard alphabetTracker={alphabetTracker} />
       </View>
       <Button onPress={resetGame} title="Reset Game" />
     </View>

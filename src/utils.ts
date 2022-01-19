@@ -33,6 +33,8 @@ export function generateLetterMap(): AlphabetMap {
     x: LetterTracker.NO_GUESS,
     y: LetterTracker.NO_GUESS,
     z: LetterTracker.NO_GUESS,
+    ent: LetterTracker.NO_GUESS,
+    del: LetterTracker.NO_GUESS,
   };
 }
 
@@ -63,6 +65,8 @@ export interface AlphabetMap {
   x: LetterTracker;
   y: LetterTracker;
   z: LetterTracker;
+  ent: LetterTracker;
+  del: LetterTracker;
 }
 
 export enum LetterTracker {
