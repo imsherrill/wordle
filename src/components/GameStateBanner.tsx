@@ -37,10 +37,7 @@ interface GameStateBannerProps {
 export function GameStateBanner({
   state,
   answer,
-}: GameStateBannerProps): JSX.Element {
-  if (state === GameState.IN_PROGRESS) {
-    return <View />;
-  }
+}: GameStateBannerProps): JSX.Element | null {
   switch (+state) {
     case GameState.VICTORY:
       return (
@@ -55,5 +52,7 @@ export function GameStateBanner({
           <Text style={styles.answer}>{answer}</Text>
         </View>
       );
+    default:
+      return null;
   }
 }
