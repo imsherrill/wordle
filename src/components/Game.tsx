@@ -1,7 +1,6 @@
 import React, {useState, useCallback, useEffect} from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
 import {Grid} from './Grid';
-import {Guesser} from './Guesser';
 import randomWords from 'random-words';
 import {NUM_GUESSES, NUM_LETTERS} from '../constants';
 import _ from 'lodash';
@@ -12,7 +11,6 @@ import {
   isValidWord,
   LetterTracker,
 } from '../utils';
-import {RemainingLetters} from './RemainingLetters';
 import {Keyboard} from './Keyboard';
 
 const styles = StyleSheet.create({
@@ -101,6 +99,7 @@ export function Game() {
   const resetGame = useCallback(() => {
     setGuesses([]);
     setGuessCandidate('');
+    setValidationError(undefined);
     setAnswer(generateWord());
     setAlphabetTracker(generateLetterMap());
   }, []);
@@ -119,9 +118,8 @@ export function Game() {
   return (
     <View style={styles.container}>
       <GameStateBanner state={gameState} answer={answer} />
-      <Grid answer={answer} guesses={guesses} />
+      <Grid answer={answer} guesses={guesses} guessCandidate={guessCandidate} />
       <Text>{validationError}</Text>
-      <Text>{guessCandidate}</Text>
       <View style={styles.remainingLettersContainer}>
         <Keyboard
           alphabetTracker={alphabetTracker}

@@ -13,14 +13,33 @@ const styles = StyleSheet.create({
 interface GridProps {
   answer: string;
   guesses: string[];
+  guessCandidate: string;
 }
 
-export function Grid({answer, guesses}: GridProps): JSX.Element {
+export function Grid({
+  answer,
+  guesses,
+  guessCandidate,
+}: GridProps): JSX.Element {
   return (
     <View style={styles.container}>
       {_.times(NUM_GUESSES, i => {
-        const guess = guesses[i];
-        return <WordGuess key={i} answer={answer} guess={guess} />;
+        let guess = guesses[i];
+        let confirmedGuess = true;
+
+        if (guess === undefined && i === guesses.length) {
+          guess = guessCandidate;
+          confirmedGuess = false;
+        }
+
+        return (
+          <WordGuess
+            key={i}
+            answer={answer}
+            guess={guess}
+            confirmedGuess={confirmedGuess}
+          />
+        );
       })}
     </View>
   );

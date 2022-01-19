@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
 
 interface WordGuessProps {
   answer: string;
-  guess: string[];
+  guess: string;
+  confirmedGuess: boolean;
 }
 
 function getGuessResult(
@@ -32,18 +33,21 @@ function getGuessResult(
   }
 }
 
-export function WordGuess({guess, answer}: WordGuessProps): JSX.Element {
+export function WordGuess({
+  guess,
+  answer,
+  confirmedGuess,
+}: WordGuessProps): JSX.Element {
   return (
     <View style={styles.container}>
       {_.times(NUM_LETTERS, i => {
         const letterGuess = guess ? guess[i] : undefined;
-        return (
-          <LetterGuess
-            key={i}
-            guess={letterGuess}
-            result={getGuessResult(answer, letterGuess, i)}
-          />
-        );
+        let guessResult = GuessResult.NO_GUESS;
+        if (confirmedGuess) {
+          guessResult = getGuessResult(answer, letterGuess, i);
+        }
+
+        return <LetterGuess key={i} guess={letterGuess} result={guessResult} />;
       })}
     </View>
   );
