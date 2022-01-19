@@ -1,5 +1,5 @@
 import React, {useState, useCallback, useEffect} from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import {Button, StyleSheet, View} from 'react-native';
 import {Grid} from './Grid';
 import randomWords from 'random-words';
 import {NUM_GUESSES, NUM_LETTERS} from '../constants';
@@ -17,16 +17,17 @@ import {ValidationDisplay} from './ValidationDisplay';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: 30,
     marginTop: 20,
+    justifyContent: 'space-between',
   },
-  guesserContainer: {
-    marginTop: 20,
-    marginBottom: 10,
+  gridContainer: {
+    marginHorizontal: 20,
   },
-  remainingLettersContainer: {
+  keyboardContainer: {
     flex: 1,
+    marginHorizontal: 10,
   },
+  resetContainer: {},
 });
 
 function generateWord(): string {
@@ -81,12 +82,15 @@ export function Game() {
       setGuesses([...guesses, sanitizedWord]);
       updateTracker(sanitizedWord);
       setGuessCandidate('');
+      setValidationError(undefined);
     }
   }, [guessCandidate, guesses, updateTracker]);
 
   const addToGuess = useCallback(
     letter => {
-      setGuessCandidate(guessCandidate + letter);
+      if (guessCandidate.length < NUM_LETTERS) {
+        setGuessCandidate(guessCandidate + letter);
+      }
     },
     [guessCandidate],
   );
@@ -119,9 +123,16 @@ export function Game() {
   return (
     <View style={styles.container}>
       <GameStateBanner state={gameState} answer={answer} />
-      <Grid answer={answer} guesses={guesses} guessCandidate={guessCandidate} />
+      <View style={styles.gridContainer}>
+        <Grid
+          answer={answer}
+          guesses={guesses}
+          guessCandidate={guessCandidate}
+        />
+      </View>
+
       <ValidationDisplay text={validationError} />
-      <View style={styles.remainingLettersContainer}>
+      <View style={styles.keyboardContainer}>
         <Keyboard
           alphabetTracker={alphabetTracker}
           submit={makeGuess}
@@ -129,7 +140,9 @@ export function Game() {
           onType={addToGuess}
         />
       </View>
-      <Button onPress={resetGame} title="Reset Game" />
+      <View style={styles.resetContainer}>
+        <Button onPress={resetGame} title="Reset Game" />
+      </View>
     </View>
   );
 }

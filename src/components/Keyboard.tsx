@@ -8,15 +8,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  letterContainer: {},
   keyboardRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginVertical: 10,
+    marginVertical: 7,
   },
   baseGuess: {
-    padding: 8,
+    paddingHorizontal: 11,
+    paddingVertical: 11,
     color: colors.text,
     fontWeight: '800',
     textAlign: 'center',

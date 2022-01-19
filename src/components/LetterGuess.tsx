@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     height: BOX_SIZE,
     width: BOX_SIZE,
     margin: 10,
+    borderRadius: 1,
   },
   textStyle: {
     color: colors.text,

@@ -4,7 +4,6 @@ import {
   StatusBar,
   useColorScheme,
   StyleSheet,
-  ScrollView,
   View,
 } from 'react-native';
 
@@ -16,12 +15,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
     flex: 1,
   },
-  keyboardView: {
-    flex: 1,
-  },
   innerView: {
     flex: 1,
-    marginBottom: 250,
   },
 });
 
@@ -31,11 +26,9 @@ const App = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView style={styles.keyboardView}>
-        <View style={styles.innerView}>
-          <Game />
-        </View>
-      </ScrollView>
+      <View style={styles.innerView}>
+        <Game />
+      </View>
     </SafeAreaView>
   );
 };
