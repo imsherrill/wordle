@@ -6,6 +6,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
 
 import {Game} from './src/components/Game';
 import {colors} from './src/constants';
@@ -24,12 +25,14 @@ const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <View style={styles.innerView}>
-        <Game />
-      </View>
-    </SafeAreaView>
+    <NavigationContainer>
+      <SafeAreaView style={styles.container}>
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+        <View style={styles.innerView}>
+          <Game />
+        </View>
+      </SafeAreaView>
+    </NavigationContainer>
   );
 };
 
