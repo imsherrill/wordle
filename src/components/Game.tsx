@@ -84,7 +84,7 @@ export function Game() {
     } else if (!isValidWord(guessCandidate)) {
       Toast.show({
         type: 'error',
-        text1: 'Thats not an real word',
+        text1: 'Thats not a real word',
       });
     } else {
       const sanitizedWord = guessCandidate.toLowerCase();
