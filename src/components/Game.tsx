@@ -15,6 +15,7 @@ import {Keyboard} from './Keyboard';
 import {ValidationDisplay} from './ValidationDisplay';
 import {gameResetter} from '../GameResetter';
 import {useNavigation} from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
 
 const styles = StyleSheet.create({
   container: {
@@ -78,11 +79,18 @@ export function Game() {
     [alphabetTracker, answer],
   );
 
+  // todo: dont let user hit enter if theres no candidate
   const makeGuess = useCallback(() => {
     if (guessCandidate.length !== NUM_LETTERS) {
-      setValidationError(`${NUM_LETTERS} letter guesses only!`);
+      Toast.show({
+        type: 'error',
+        text1: `${NUM_LETTERS} letter guesses only!`,
+      });
     } else if (!isValidWord(guessCandidate)) {
-      setValidationError('thats not an english word');
+      Toast.show({
+        type: 'error',
+        text1: 'thats not an english word',
+      });
     } else {
       const sanitizedWord = guessCandidate.toLowerCase();
       setGuesses([...guesses, sanitizedWord]);

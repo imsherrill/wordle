@@ -13,4 +13,5 @@ export const colors = {
   noGuessKeyboard: '#818384',
   peri: '#6667ab',
   pink: '#d47f79',
+  errorAlert: '#787878',
 };
