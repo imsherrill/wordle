@@ -14,6 +14,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginVertical: 2,
   },
+  keyboardMiddleRow: {
+    justifyContent: 'center',
+  },
   textStyle: {
     color: colors.text,
     fontWeight: '800',

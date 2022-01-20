@@ -14,13 +14,13 @@ const styles = StyleSheet.create({
     color: colors.peri,
     fontWeight: 'bold',
   },
-  logoContainer: {
-    flexDirection: 'column',
-  },
+  logoContainer: {},
   menuIconContainer: {
-    alignSelf: 'flex-end',
-    paddingRight: 20,
-    transform: [{translateY: -41}],
+    position: 'absolute',
+    right: 20,
+    top: 0,
+    bottom: 0,
+    transform: [{translateY: 7}],
   },
 });
 

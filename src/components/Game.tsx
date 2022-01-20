@@ -1,5 +1,5 @@
 import React, {useState, useCallback, useEffect} from 'react';
-import {Button, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {Grid} from './Grid';
 import randomWords from 'random-words';
 import {NUM_GUESSES, NUM_LETTERS} from '../constants';
@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 20,
     justifyContent: 'space-between',
+    // backgroundColor: 'yellow',
   },
   gridContainer: {
     marginHorizontal: 20,

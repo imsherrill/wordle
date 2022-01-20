@@ -10,15 +10,16 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
+    paddingTop: 6,
   },
   itemContainer: {
     borderBottomColor: colors.peri,
   },
   itemText: {
     color: colors.partial,
-    fontSize: 20,
+    fontSize: 18,
     padding: 20,
-    fontWeight: '400',
+    fontWeight: '500',
   },
   madeByIsaacText: {
     color: colors.peri,

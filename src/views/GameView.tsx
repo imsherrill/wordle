@@ -11,21 +11,19 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
     flex: 1,
   },
-  innerView: {
-    flex: 1,
+  headerContainer: {
+    marginTop: '2.5%',
   },
 });
 
 export function GameView(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <View style={styles.innerView}>
+      <StatusBar barStyle={'light-content'} />
+      <View style={styles.headerContainer}>
         <GameHeader />
-        <Game />
       </View>
+      <Game />
     </SafeAreaView>
   );
 }
