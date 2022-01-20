@@ -12,7 +12,6 @@ import {
   LetterTracker,
 } from '../utils';
 import {Keyboard} from './Keyboard';
-import {ValidationDisplay} from './ValidationDisplay';
 import {gameResetter} from '../GameResetter';
 import {useNavigation} from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
@@ -46,9 +45,6 @@ function generateWord(): string {
 export function Game() {
   const [answer, setAnswer] = useState<string>(generateWord());
   const [guessCandidate, setGuessCandidate] = useState('');
-  const [validationError, setValidationError] = useState<string | undefined>(
-    undefined,
-  );
   const [guesses, setGuesses] = useState<string[]>([]);
   const [gameState, setGameState] = useState<GameState>(GameState.IN_PROGRESS);
   const [alphabetTracker, setAlphabetTracker] = useState<AlphabetMap>(
@@ -96,7 +92,6 @@ export function Game() {
       setGuesses([...guesses, sanitizedWord]);
       updateTracker(sanitizedWord);
       setGuessCandidate('');
-      setValidationError(undefined);
     }
   }, [guessCandidate, guesses, updateTracker]);
 
@@ -118,7 +113,6 @@ export function Game() {
   const resetGame = useCallback(() => {
     setGuesses([]);
     setGuessCandidate('');
-    setValidationError(undefined);
     setAnswer(generateWord());
     setAlphabetTracker(generateLetterMap());
     navigation.closeDrawer();
@@ -149,8 +143,6 @@ export function Game() {
           guessCandidate={guessCandidate}
         />
       </View>
-
-      <ValidationDisplay text={validationError} />
       <View style={styles.keyboardContainer}>
         <Keyboard
           alphabetTracker={alphabetTracker}

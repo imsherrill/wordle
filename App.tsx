@@ -35,7 +35,7 @@ export default function App(): JSX.Element {
       <Toast
         position="bottom"
         config={toastConfig}
-        bottomOffset={200}
+        bottomOffset={275}
         visibilityTime={2000}
       />
     </>
