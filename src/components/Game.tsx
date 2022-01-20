@@ -13,6 +13,8 @@ import {
 } from '../utils';
 import {Keyboard} from './Keyboard';
 import {ValidationDisplay} from './ValidationDisplay';
+import {gameResetter} from '../GameResetter';
+import {useNavigation} from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   container: {
@@ -28,7 +30,6 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: 10,
   },
-  resetContainer: {},
 });
 
 function generateWord(): string {
@@ -50,6 +51,8 @@ export function Game() {
   const [alphabetTracker, setAlphabetTracker] = useState<AlphabetMap>(
     generateLetterMap(),
   );
+
+  const navigation = useNavigation();
 
   const updateTracker = useCallback(
     guess => {
@@ -108,7 +111,12 @@ export function Game() {
     setValidationError(undefined);
     setAnswer(generateWord());
     setAlphabetTracker(generateLetterMap());
-  }, []);
+    navigation.closeDrawer();
+  }, [navigation]);
+
+  useEffect(() => {
+    gameResetter.register(resetGame);
+  }, [resetGame]);
 
   useEffect(() => {
     const lastGuess = _.last(guesses);
@@ -140,9 +148,6 @@ export function Game() {
           backspace={backspace}
           onType={addToGuess}
         />
-      </View>
-      <View style={styles.resetContainer}>
-        <Button onPress={resetGame} title="Reset Game" />
       </View>
     </View>
   );

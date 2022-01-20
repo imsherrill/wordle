@@ -28,7 +28,7 @@ export function GameHeader(): JSX.Element {
   const navigation = useNavigation();
 
   const openDrawer = useCallback(() => {
-    navigation.openDrawer();
+    navigation.openDrawer({a: 1});
   }, [navigation]);
 
   return (
