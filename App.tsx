@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '600',
     color: colors.text,
-    textTransform: 'uppercase',
   },
   errorContainerStyle: {
     backgroundColor: colors.errorAlert,

@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 20,
     justifyContent: 'space-between',
-    // backgroundColor: 'yellow',
     marginBottom: 20,
   },
   gridContainer: {
@@ -85,7 +84,7 @@ export function Game() {
     } else if (!isValidWord(guessCandidate)) {
       Toast.show({
         type: 'error',
-        text1: 'thats not an english word',
+        text1: 'Thats not an real word',
       });
     } else {
       const sanitizedWord = guessCandidate.toLowerCase();
