@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headerContainer: {
-    marginTop: '2.5%',
+    marginTop: 20,
   },
 });
 

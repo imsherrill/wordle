@@ -12,4 +12,5 @@ export const colors = {
   background: '#3a3a3c',
   noGuessKeyboard: '#818384',
   peri: '#6667ab',
+  pink: '#d47f79',
 };

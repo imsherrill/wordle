@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     justifyContent: 'space-between',
     // backgroundColor: 'yellow',
+    marginBottom: 20,
   },
   gridContainer: {
     marginHorizontal: 20,

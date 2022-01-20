@@ -11,20 +11,20 @@ const styles = StyleSheet.create({
   keyboardRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    marginVertical: 2,
-  },
-  keyboardMiddleRow: {
     justifyContent: 'center',
+    marginVertical: 2,
   },
   textStyle: {
     color: colors.text,
     fontWeight: '800',
+    width: '100%',
+    textAlign: 'center',
   },
   baseKeyboardKey: {
-    paddingHorizontal: 11,
-    paddingVertical: 11,
-    textAlign: 'center',
+    paddingHorizontal: 10,
+    marginHorizontal: 1.5,
+    minWidth: 32,
+    paddingVertical: 13,
     borderRadius: 3,
   },
   knownIndex: {
