@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {Game} from '../components/Game';
 import {colors} from '../constants';
+import {GameHeader} from './GameHeader';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,6 +28,7 @@ export function GameView(): JSX.Element {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <View style={styles.innerView}>
+        <GameHeader />
         <Game />
       </View>
     </SafeAreaView>
