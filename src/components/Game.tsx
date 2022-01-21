@@ -4,7 +4,6 @@ import {Grid} from './Grid';
 import randomWords from 'random-words';
 import {NUM_GUESSES, NUM_LETTERS} from '../constants';
 import _ from 'lodash';
-import {GameState, GameStateBanner} from './GameStateBanner';
 import {
   AlphabetMap,
   generateLetterMap,
@@ -15,6 +14,9 @@ import {Keyboard} from './Keyboard';
 import {gameResetter} from '../GameResetter';
 import {useNavigation} from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
+import Modal from 'react-native-modal';
+import {VictoryModal} from './VictoryModal';
+import {LossModal} from './LossModal';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,6 +34,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
 });
+
+export enum GameState {
+  VICTORY,
+  IN_PROGRESS,
+  LOSS,
+}
 
 function generateWord(): string {
   let word = '';
@@ -134,7 +142,6 @@ export function Game() {
 
   return (
     <View style={styles.container}>
-      <GameStateBanner state={gameState} answer={answer} />
       <View style={styles.gridContainer}>
         <Grid
           answer={answer}
@@ -150,6 +157,21 @@ export function Game() {
           onType={addToGuess}
         />
       </View>
+      <Modal
+        isVisible={gameState === GameState.VICTORY}
+        swipeDirection="down"
+        onSwipeComplete={resetGame}
+        onBackdropPress={resetGame}>
+        <VictoryModal />
+      </Modal>
+
+      <Modal
+        isVisible={gameState === GameState.LOSS}
+        swipeDirection="down"
+        onSwipeComplete={resetGame}
+        onBackdropPress={resetGame}>
+        <LossModal answer={answer} />
+      </Modal>
     </View>
   );
 }

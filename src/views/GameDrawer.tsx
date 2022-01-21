@@ -42,7 +42,7 @@ export function GameDrawer({}): JSX.Element {
   return (
     <SafeAreaView style={styles.container}>
       <TouchableOpacity style={styles.itemContainer} onPress={resetGame}>
-        <Text style={styles.itemText}>Reset Game</Text>
+        <Text style={styles.itemText}>New Game</Text>
       </TouchableOpacity>
       <Text style={styles.madeByIsaacText}>Made By Isaac :)</Text>
     </SafeAreaView>
