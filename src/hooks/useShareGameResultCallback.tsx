@@ -23,7 +23,7 @@ function buildShareText(answer: string, guesses: string[]): string {
     return buildEmojiGuessRow(answer, guess);
   }).join('\n');
 
-  return `"${overviewText}\n\n'${emojiGameBoard}`;
+  return `${overviewText}\n\n${emojiGameBoard}`;
 }
 
 function buildEmojiGuessRow(answer: string, guess: string | undefined): string {

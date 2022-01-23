@@ -13,14 +13,14 @@ const styles = StyleSheet.create({
   newGameButton: {
     backgroundColor: colors.partial,
   },
-  shareButton: {
-    backgroundColor: colors.partial,
-  },
+
 });
 
-interface VictoryModalProps {}
+interface VictoryModalProps {
+  shareScore: () => void;
+}
 
-export function VictoryModal({}: VictoryModalProps): JSX.Element {
+export function VictoryModal({shareScore}: VictoryModalProps): JSX.Element {
   const resetGame = useCallback(() => {
     gameResetter.call();
   }, []);
@@ -35,7 +35,9 @@ export function VictoryModal({}: VictoryModalProps): JSX.Element {
             onPress={resetGame}>
             <Text style={modalStyles.baseButtonText}>New Game</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.shareButton, styles.baseButton]}>
+          <TouchableOpacity
+            onPress={shareScore}
+            style={[modalStyles.shareButton, modalStyles.baseButton]}>
             <Text style={modalStyles.baseButtonText}>Share</Text>
           </TouchableOpacity>
         </View>

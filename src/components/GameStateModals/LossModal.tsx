@@ -22,9 +22,10 @@ const styles = StyleSheet.create({
 
 interface LossModalProps {
   answer: string;
+  shareScore: () => void;
 }
 
-export function LossModal({answer}: LossModalProps): JSX.Element {
+export function LossModal({shareScore, answer}: LossModalProps): JSX.Element {
   const resetGame = useCallback(() => {
     gameResetter.call();
   }, []);
@@ -39,6 +40,11 @@ export function LossModal({answer}: LossModalProps): JSX.Element {
             style={[styles.newGameButton, modalStyles.baseButton]}
             onPress={resetGame}>
             <Text style={modalStyles.baseButtonText}>New Game</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={shareScore}
+            style={[modalStyles.shareButton, modalStyles.baseButton]}>
+            <Text style={modalStyles.baseButtonText}>Share</Text>
           </TouchableOpacity>
         </View>
       </View>

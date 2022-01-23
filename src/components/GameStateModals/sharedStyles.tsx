@@ -28,4 +28,7 @@ export const modalStyles = StyleSheet.create({
     fontSize: 17,
     padding: 10,
   },
+  shareButton: {
+    backgroundColor: colors.partial,
+  },
 });

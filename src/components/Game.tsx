@@ -163,23 +163,21 @@ export function Game() {
           onType={addToGuess}
         />
       </View>
-      <Button title="share" onPress={shareScore} />
       <Modal
         isVisible={gameState === GameState.VICTORY}
         swipeDirection="down"
         onSwipeComplete={resetGame}
         onBackdropPress={resetGame}
         style={styles.modalStyle}>
-        <VictoryModal />
+        <VictoryModal shareScore={shareScore} />
       </Modal>
-
       <Modal
         isVisible={gameState === GameState.LOSS}
         swipeDirection="down"
         onSwipeComplete={resetGame}
         onBackdropPress={resetGame}
         style={styles.modalStyle}>
-        <LossModal answer={answer} />
+        <LossModal answer={answer} shareScore={shareScore} />
       </Modal>
     </View>
   );
