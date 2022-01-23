@@ -3,6 +3,7 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {colors} from '../../constants';
 import {gameResetter} from '../../GameResetter';
 import {modalStyles} from './sharedStyles';
+import Icon from 'react-native-vector-icons/Entypo';
 
 const styles = StyleSheet.create({
   victoryText: {
@@ -13,7 +14,6 @@ const styles = StyleSheet.create({
   newGameButton: {
     backgroundColor: colors.partial,
   },
-
 });
 
 interface VictoryModalProps {
@@ -39,6 +39,7 @@ export function VictoryModal({shareScore}: VictoryModalProps): JSX.Element {
             onPress={shareScore}
             style={[modalStyles.shareButton, modalStyles.baseButton]}>
             <Text style={modalStyles.baseButtonText}>Share</Text>
+            <Icon name="share" size={21} color={colors.absent} />
           </TouchableOpacity>
         </View>
       </View>

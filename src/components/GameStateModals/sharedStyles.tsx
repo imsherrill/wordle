@@ -27,8 +27,13 @@ export const modalStyles = StyleSheet.create({
   baseButtonText: {
     fontSize: 17,
     padding: 10,
+    color: colors.absent,
   },
   shareButton: {
     backgroundColor: colors.partial,
+    flexDirection: 'row',
+    display: 'flex',
+    alignItems: 'center',
+    paddingRight: 10,
   },
 });
