@@ -5,6 +5,29 @@ export function isValidWord(word: string): boolean {
   return _.includes(words, word.toLowerCase());
 }
 
+export enum GuessResult {
+  CORRECT,
+  IN_WORD,
+  INCORRECT,
+  NO_GUESS,
+}
+
+export function getGuessResult(
+  answer: string,
+  letterGuess: string | undefined,
+  index: number,
+): GuessResult {
+  if (_.isNil(letterGuess)) {
+    return GuessResult.NO_GUESS;
+  } else if (answer[index] === letterGuess) {
+    return GuessResult.CORRECT;
+  } else if (_.includes(answer, letterGuess)) {
+    return GuessResult.IN_WORD;
+  } else {
+    return GuessResult.INCORRECT;
+  }
+}
+
 export function generateLetterMap(): AlphabetMap {
   return {
     a: LetterTracker.NO_GUESS,

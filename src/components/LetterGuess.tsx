@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import {colors} from '../constants';
+import {GuessResult} from '../utils';
 
 const BOX_SIZE = 40;
 
@@ -51,13 +52,6 @@ function getGuessStyles(result: GuessResult): any {
 interface LetterGuessProps {
   guess?: string;
   result: GuessResult;
-}
-
-export enum GuessResult {
-  CORRECT,
-  IN_WORD,
-  INCORRECT,
-  NO_GUESS,
 }
 
 export function LetterGuess({guess, result}: LetterGuessProps): JSX.Element {

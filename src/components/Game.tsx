@@ -1,5 +1,5 @@
 import React, {useState, useCallback, useEffect} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Button, StyleSheet, View} from 'react-native';
 import {Grid} from './Grid';
 import randomWords from 'random-words';
 import {NUM_GUESSES, NUM_LETTERS} from '../constants';
@@ -15,8 +15,9 @@ import {gameResetter} from '../GameResetter';
 import {useNavigation} from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
 import Modal from 'react-native-modal';
-import {VictoryModal} from './VictoryModal';
-import {LossModal} from './LossModal';
+import {VictoryModal} from './GameStateModals/VictoryModal';
+import {LossModal} from './GameStateModals/LossModal';
+import {useShareGameResultCallback} from '../hooks/useShareGameResultCallback';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,6 +33,9 @@ const styles = StyleSheet.create({
   keyboardContainer: {
     flex: 1,
     marginHorizontal: 10,
+  },
+  modalStyle: {
+    margin: 0,
   },
 });
 
@@ -57,6 +61,8 @@ export function Game() {
   const [alphabetTracker, setAlphabetTracker] = useState<AlphabetMap>(
     generateLetterMap(),
   );
+
+  const shareScore = useShareGameResultCallback(answer, guesses);
 
   const navigation = useNavigation();
 
@@ -157,11 +163,13 @@ export function Game() {
           onType={addToGuess}
         />
       </View>
+      <Button title="share" onPress={shareScore} />
       <Modal
         isVisible={gameState === GameState.VICTORY}
         swipeDirection="down"
         onSwipeComplete={resetGame}
-        onBackdropPress={resetGame}>
+        onBackdropPress={resetGame}
+        style={styles.modalStyle}>
         <VictoryModal />
       </Modal>
 
@@ -169,7 +177,8 @@ export function Game() {
         isVisible={gameState === GameState.LOSS}
         swipeDirection="down"
         onSwipeComplete={resetGame}
-        onBackdropPress={resetGame}>
+        onBackdropPress={resetGame}
+        style={styles.modalStyle}>
         <LossModal answer={answer} />
       </Modal>
     </View>

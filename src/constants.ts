@@ -14,4 +14,5 @@ export const colors = {
   peri: '#6667ab',
   pink: '#d47f79',
   errorAlert: '#787878',
+  transparent: 'transparent',
 };

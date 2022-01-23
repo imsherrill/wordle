@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {colors} from '../constants';
 import {gameResetter} from '../GameResetter';
@@ -34,7 +34,7 @@ export function GameDrawerShell(): JSX.Element {
   return <GameDrawer />;
 }
 
-export function GameDrawer({}): JSX.Element {
+export function GameDrawer(): JSX.Element {
   const resetGame = useCallback(() => {
     gameResetter.call();
   }, []);
