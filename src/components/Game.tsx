@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
   },
   gridContainer: {
     marginHorizontal: 30,
+    marginBottom: 20,
     flex: 3,
     justifyContent: 'center',
     maxWidth: 500,

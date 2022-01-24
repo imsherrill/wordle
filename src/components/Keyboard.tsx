@@ -44,9 +44,12 @@ export function Keyboard({
           <View style={styles.keyboardRow} key={keyboardRow}>
             {_.map(keyboardRow.split(' '), keyboardKey => {
               let onPress: onKeyboardButtonPress;
+              let wideKey = false;
               if (keyboardKey === 'ent') {
+                wideKey = true;
                 onPress = submit;
               } else if (keyboardKey === 'del') {
+                wideKey = true;
                 onPress = backspace;
               } else {
                 onPress = () => onType(keyboardKey);
@@ -57,6 +60,7 @@ export function Keyboard({
                   key={keyboardKey}
                   state={alphabetTracker[keyboardKey]}
                   onPress={onPress}
+                  wide={wideKey}
                 />
               );
             })}
