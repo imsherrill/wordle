@@ -2,6 +2,7 @@ import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import {colors} from '../constants';
 import {GuessResult} from '../utils';
+import {RFPercentage} from 'react-native-responsive-fontsize';
 
 const styles = StyleSheet.create({
   container: {
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
   textStyle: {
     color: colors.text,
     fontWeight: '800',
-    fontSize: 25,
+    fontSize: Math.min(RFPercentage(4), 46),
     textAlign: 'center',
   },
   correctGuess: {
