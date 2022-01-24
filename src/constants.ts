@@ -6,7 +6,7 @@ export const colors = {
   failure: 'maroon',
   failureLight: '#ff3b30',
   partial: '#b59f3b',
-  absent: '#121214',
+  absent: '#242424',
   unknown: '#3a3a3c',
   unknownBorder: 'grey',
   text: '#D7DADC',

@@ -7,6 +7,8 @@ import {colors} from '../constants';
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
+    borderColor: colors.unknownBorder,
+    borderBottomWidth: 1,
   },
   logo: {
     fontSize: 40,

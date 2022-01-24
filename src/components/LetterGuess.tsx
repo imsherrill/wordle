@@ -3,22 +3,21 @@ import {View, StyleSheet, Text} from 'react-native';
 import {colors} from '../constants';
 import {GuessResult} from '../utils';
 
-const BOX_SIZE = 40;
-
 const styles = StyleSheet.create({
   container: {
-    height: BOX_SIZE,
-    width: BOX_SIZE,
-    margin: 10,
+    display: 'flex',
+    flex: 1,
+    margin: 3,
     borderRadius: 1,
+    aspectRatio: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   textStyle: {
     color: colors.text,
     fontWeight: '800',
-    fontSize: 20,
+    fontSize: 25,
     textAlign: 'center',
-    textAlignVertical: 'center',
-    paddingTop: 7,
   },
   correctGuess: {
     backgroundColor: colors.success,

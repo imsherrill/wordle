@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {StatusBar, useColorScheme, StyleSheet, View} from 'react-native';
+import {StatusBar, StyleSheet, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Game} from '../components/Game';
 import {colors} from '../constants';
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headerContainer: {
-    marginTop: 20,
+    marginTop: 5,
   },
 });
 

@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import React from 'react';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
-import {colors} from '../constants';
-import {AlphabetMap, LetterTracker} from '../utils';
+import {View, StyleSheet} from 'react-native';
+import {AlphabetMap} from '../utils';
+import {KeyboardKey} from './KeyboardKey';
 
 const styles = StyleSheet.create({
   container: {
@@ -10,34 +10,9 @@ const styles = StyleSheet.create({
   },
   keyboardRow: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'center',
     marginVertical: 2,
-  },
-  textStyle: {
-    color: colors.text,
-    fontWeight: '800',
-    width: '100%',
-    textAlign: 'center',
-  },
-  baseKeyboardKey: {
-    paddingHorizontal: 10,
-    marginHorizontal: 1.5,
-    minWidth: 32,
-    paddingVertical: 13,
-    borderRadius: 3,
-  },
-  knownIndex: {
-    backgroundColor: colors.success,
-  },
-  inWord: {
-    backgroundColor: colors.partial,
-  },
-  noGuess: {
-    backgroundColor: colors.noGuessKeyboard,
-  },
-  notInWord: {
-    backgroundColor: colors.background,
+    flex: 1,
   },
 });
 
@@ -54,7 +29,7 @@ interface KeyboardProps {
   onType: onKeyboardButtonPress;
 }
 
-type onKeyboardButtonPress = (arg0: any) => void;
+export type onKeyboardButtonPress = (arg0: any) => void;
 
 export function Keyboard({
   alphabetTracker,
@@ -90,33 +65,4 @@ export function Keyboard({
       })}
     </View>
   );
-}
-
-function KeyboardKey({
-  letter,
-  state,
-  onPress,
-}: {
-  letter: string;
-  state: LetterTracker;
-  onPress: onKeyboardButtonPress;
-}) {
-  return (
-    <TouchableOpacity style={getStateStyles(state)} onPress={onPress}>
-      <Text style={styles.textStyle}>{letter.toUpperCase()}</Text>
-    </TouchableOpacity>
-  );
-}
-
-function getStateStyles(state: LetterTracker): any {
-  switch (+state) {
-    case LetterTracker.NO_GUESS:
-      return [styles.noGuess, styles.baseKeyboardKey];
-    case LetterTracker.IN_WORD:
-      return [styles.inWord, styles.baseKeyboardKey];
-    case LetterTracker.KNOWN_INDEX:
-      return [styles.knownIndex, styles.baseKeyboardKey];
-    case LetterTracker.NOT_IN_WORD:
-      return [styles.notInWord, styles.baseKeyboardKey];
-  }
 }

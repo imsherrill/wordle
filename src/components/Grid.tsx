@@ -7,7 +7,7 @@ import {WordGuess} from './WordGuess';
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    flex: 1,
   },
 });
 interface GridProps {
