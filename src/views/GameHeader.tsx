@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     borderColor: colors.unknownBorder,
+    paddingBottom: 5,
     borderBottomWidth: 1,
   },
   logo: {
