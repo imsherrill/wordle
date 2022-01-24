@@ -3,6 +3,7 @@ import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {colors} from '../constants';
 import {LetterTracker} from '../utils';
 import {onKeyboardButtonPress} from './Keyboard';
+import {RFPercentage} from 'react-native-responsive-fontsize';
 
 const KEY_WIDTH_PERCENT = 8.5;
 
@@ -12,9 +13,9 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     textAlign: 'center',
     textAlignVertical: 'center',
+    fontSize: RFPercentage(2.1),
   },
   baseKeyboardKey: {
-    // paddingHorizontal: 10,
     width: `${KEY_WIDTH_PERCENT}%`,
     marginHorizontal: 1.5,
     minWidth: 32,
