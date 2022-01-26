@@ -29,7 +29,7 @@ interface KeyboardProps {
   onType: onKeyboardButtonPress;
 }
 
-export type onKeyboardButtonPress = (arg0: any) => void;
+export type onKeyboardButtonPress = (arg0?: any) => void;
 
 export function Keyboard({
   alphabetTracker,
