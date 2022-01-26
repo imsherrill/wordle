@@ -12,3 +12,4 @@ todos:
 * scoring rules for same letter in word twice
   * if one of the duplicate letters is in the correct position, that one is green, other one is "not in word"
   * if neither of the duplicate letters are in the right position, only the first one is yellow
+* streaks/ stats
