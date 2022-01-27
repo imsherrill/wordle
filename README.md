@@ -14,3 +14,4 @@ todos:
 * delay after winning/losing before popping up the game results modal
 * streaks/ stats
 * lottie animations?
+* animate color transitions on keyboard
