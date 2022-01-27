@@ -6,14 +6,10 @@ import {NUM_GUESSES, NUM_LETTERS} from '../constants';
 import _ from 'lodash';
 import {
   AlphabetMap,
-  isFirstOccurrenceOfLetterInWord,
   generateLetterMap,
   GuessResult,
-  indicesOfLetterInWord,
   isValidWord,
-  letterOccurrenceInWord,
   LetterTracker,
-  removeLettersAtIndices,
 } from '../utils';
 import {Keyboard} from './Keyboard';
 import {gameResetter} from '../GameResetter';
@@ -176,14 +172,17 @@ export function Game() {
     }
   }, [guessCandidate]);
 
-  const resetGame = useCallback(() => {
-    setGuesses([]);
-    setGuessResults([]);
-    setGuessCandidate('');
-    setAnswer(generateWord());
-    setAlphabetTracker(generateLetterMap());
-    navigation.closeDrawer();
-  }, [navigation]);
+  const resetGame = useCallback(
+    (answerOverRide?: string) => {
+      setGuesses([]);
+      setGuessResults([]);
+      setGuessCandidate('');
+      setAnswer(answerOverRide ?? generateWord());
+      setAlphabetTracker(generateLetterMap());
+      navigation.closeDrawer();
+    },
+    [navigation],
+  );
 
   useEffect(() => {
     gameResetter.register(resetGame);
@@ -220,7 +219,7 @@ export function Game() {
       <Modal
         isVisible={gameState === GameState.VICTORY}
         swipeDirection="down"
-        onSwipeComplete={resetGame}
+        onSwipeComplete={() => resetGame}
         onBackdropPress={resetGame}
         style={styles.modalStyle}>
         <VictoryModal shareScore={shareScore} />
@@ -228,7 +227,7 @@ export function Game() {
       <Modal
         isVisible={gameState === GameState.LOSS}
         swipeDirection="down"
-        onSwipeComplete={resetGame}
+        onSwipeComplete={() => resetGame}
         onBackdropPress={resetGame}
         style={styles.modalStyle}>
         <LossModal answer={answer} shareScore={shareScore} />

@@ -1,4 +1,4 @@
-type ResetFnType = () => void;
+type ResetFnType = (arg?: string) => void;
 
 class GameResetter {
   resetFn: ResetFnType | undefined;
@@ -7,9 +7,9 @@ class GameResetter {
     this.resetFn = resetFn;
   }
 
-  call() {
+  call(answerOverride?: string) {
     if (this.resetFn) {
-      this.resetFn();
+      this.resetFn(answerOverride);
     }
   }
 }
