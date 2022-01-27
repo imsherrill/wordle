@@ -4,7 +4,7 @@ import {colors} from '../constants';
 import {LetterTracker} from '../utils';
 import {onKeyboardButtonPress} from './Keyboard';
 import {RFPercentage} from 'react-native-responsive-fontsize';
-import {BaseButton} from 'react-native-gesture-handler';
+import {RectButton} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Entypo';
 
 const KEY_WIDTH_PERCENT = 8.5;
@@ -80,15 +80,14 @@ export function KeyboardKey({
   const [isPressed, setIsPressed] = useState(false);
 
   return (
-    <>
-      <BaseButton
-        style={[getStateStyles(state, styles.baseKeyboardKey), wideStyle]}
-        onActiveStateChange={setIsPressed}
-        onPress={onPress}>
-        <Text style={styles.textStyle}>{letter.toUpperCase()}</Text>
-        {isPressed ? <ActiveKeyboardKey state={state} text={letter} /> : null}
-      </BaseButton>
-    </>
+    <RectButton
+      style={[getStateStyles(state, styles.baseKeyboardKey), wideStyle]}
+      activeOpacity={0.3}
+      onActiveStateChange={setIsPressed}
+      onPress={onPress}>
+      <Text style={styles.textStyle}>{letter.toUpperCase()}</Text>
+      {isPressed ? <ActiveKeyboardKey state={state} text={letter} /> : null}
+    </RectButton>
   );
 }
 
