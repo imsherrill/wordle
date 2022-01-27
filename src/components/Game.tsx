@@ -156,6 +156,7 @@ export function Game() {
           answer={answer}
           guesses={guesses}
           guessCandidate={guessCandidate}
+          key={answer}
         />
       </View>
       <View style={styles.keyboardContainer}>

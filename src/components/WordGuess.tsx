@@ -34,7 +34,14 @@ export function WordGuess({
           guessResult = getGuessResult(answer, letterGuess, i);
         }
 
-        return <LetterGuess key={i} guess={letterGuess} result={guessResult} />;
+        return (
+          <LetterGuess
+            key={i}
+            guess={letterGuess}
+            result={guessResult}
+            letterIndex={i}
+          />
+        );
       })}
     </View>
   );
