@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 });
 
 const toastConfig = {
-  error: props => (
+  error: (props: any) => (
     <BaseToast
       {...props}
       style={{borderLeftColor: colors.failure}}

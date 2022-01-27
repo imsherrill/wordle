@@ -98,3 +98,7 @@ export enum LetterTracker {
   KNOWN_INDEX,
   NOT_IN_WORD,
 }
+
+export function letterOccurrenceInWord(word: string, letter: string) {
+  return (word.match(new RegExp(letter, 'g')) || []).length;
+}

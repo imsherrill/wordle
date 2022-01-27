@@ -7,6 +7,7 @@ import _ from 'lodash';
 import {
   AlphabetMap,
   generateLetterMap,
+  GuessResult,
   isValidWord,
   LetterTracker,
 } from '../utils';
@@ -48,6 +49,13 @@ export enum GameState {
   LOSS,
 }
 
+export interface LetterGuessResult {
+  letter: string;
+  result: GuessResult;
+}
+
+export interface WordGuessResult extends Array<LetterGuessResult> {}
+
 function generateWord(): string {
   let word = '';
   while (word.length !== NUM_LETTERS || !isValidWord(word)) {
@@ -56,10 +64,36 @@ function generateWord(): string {
   return word;
 }
 
+function scoreGuess(guess: string, answer: string): WordGuessResult {
+  const result = _.map(guess.split(''), letter => ({
+    letter,
+    result: GuessResult.INCORRECT,
+  }));
+
+  _.forEach(result, (letterResult, idx) => {
+    if (letterResult.letter === answer[idx]) {
+      letterResult.result = GuessResult.CORRECT;
+    }
+  });
+
+  _.forEach(result, letterResult => {
+    if (letterResult.result === GuessResult.CORRECT) {
+      return;
+    }
+
+    if (_.includes(answer, letterResult.letter)) {
+      letterResult.result = GuessResult.IN_WORD;
+    }
+  });
+
+  return result;
+}
+
 export function Game() {
   const [answer, setAnswer] = useState<string>(generateWord());
   const [guessCandidate, setGuessCandidate] = useState('');
   const [guesses, setGuesses] = useState<string[]>([]);
+  const [guessResults, setGuessResults] = useState<WordGuessResult[]>([]);
   const [gameState, setGameState] = useState<GameState>(GameState.IN_PROGRESS);
   const [alphabetTracker, setAlphabetTracker] = useState<AlphabetMap>(
     generateLetterMap(),
@@ -106,10 +140,13 @@ export function Game() {
     } else {
       const sanitizedWord = guessCandidate.toLowerCase();
       setGuesses([...guesses, sanitizedWord]);
+      const nextGuessResult = scoreGuess(sanitizedWord, answer);
+      console.log(nextGuessResult);
+      setGuessResults([...guessResults, nextGuessResult]);
       updateTracker(sanitizedWord);
       setGuessCandidate('');
     }
-  }, [guessCandidate, guesses, updateTracker]);
+  }, [answer, guessCandidate, guessResults, guesses, updateTracker]);
 
   const addToGuess = useCallback(
     letter => {
@@ -128,6 +165,7 @@ export function Game() {
 
   const resetGame = useCallback(() => {
     setGuesses([]);
+    setGuessResults([]);
     setGuessCandidate('');
     setAnswer(generateWord());
     setAlphabetTracker(generateLetterMap());
@@ -153,10 +191,9 @@ export function Game() {
     <View style={styles.container}>
       <View style={styles.gridContainer}>
         <Grid
-          answer={answer}
-          guesses={guesses}
           guessCandidate={guessCandidate}
           key={answer}
+          guessResults={guessResults}
         />
       </View>
       <View style={styles.keyboardContainer}>
