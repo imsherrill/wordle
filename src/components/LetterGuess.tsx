@@ -12,6 +12,7 @@ import Animated, {
 import {
   LETTER_FLIP_ANIMATION_DURATION,
   VICTORY_ANIMATION_DURATION,
+  VICTORY_ANIMATION_HEIGHT,
 } from '../constants';
 
 const styles = StyleSheet.create({
@@ -93,9 +94,9 @@ export function LetterGuess({
     });
   }, [rotateY]);
 
-  const runCorrectAnswerAnimation = useCallback(() => {
+  const runVictoryAnimation = useCallback(() => {
     const duration = VICTORY_ANIMATION_DURATION;
-    const animationHeight = -50;
+    const animationHeight = -VICTORY_ANIMATION_HEIGHT;
     translateY.value = withTiming(animationHeight, {duration}, () => {
       runOnJS(setShouldUseResultStyle)(true);
       translateY.value = withTiming(0, {duration}, () => {});
@@ -104,7 +105,7 @@ export function LetterGuess({
 
   useEffect(() => {
     if (allLettersCorrect) {
-      const timer = setTimeout(runCorrectAnswerAnimation, letterIndex * 100);
+      const timer = setTimeout(runVictoryAnimation, letterIndex * 100);
       return () => clearTimeout(timer);
     } else if (result !== GuessResult.NO_GUESS) {
       const timer = setTimeout(runGuessAnimation, letterIndex * 50);
@@ -115,7 +116,7 @@ export function LetterGuess({
     letterIndex,
     runGuessAnimation,
     allLettersCorrect,
-    runCorrectAnswerAnimation,
+    runVictoryAnimation,
   ]);
 
   return (
