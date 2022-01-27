@@ -2,7 +2,7 @@ import React, {useCallback} from 'react';
 
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {colors} from '../constants';
+import {colors} from '../constants/colors';
 import {gameResetter} from '../GameResetter';
 
 const styles = StyleSheet.create({

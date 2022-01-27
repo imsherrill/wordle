@@ -1,9 +1,9 @@
 import React, {useCallback} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {colors} from '../../constants';
 import {gameResetter} from '../../GameResetter';
 import {modalStyles} from './sharedStyles';
 import Icon from 'react-native-vector-icons/Entypo';
+import {colors} from '../../constants/colors';
 
 const styles = StyleSheet.create({
   lossText: {

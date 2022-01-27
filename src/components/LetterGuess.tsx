@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text} from 'react-native';
-import {colors} from '../constants';
+import {colors} from '../constants/colors';
 import {GuessResult} from '../utils';
 import {RFPercentage} from 'react-native-responsive-fontsize';
 import Animated, {
@@ -9,6 +9,7 @@ import Animated, {
   withTiming,
   runOnJS,
 } from 'react-native-reanimated';
+import {LETTER_FLIP_ANIMATION_DURATION} from '../constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -75,7 +76,7 @@ export function LetterGuess({
   });
 
   useEffect(() => {
-    const duration = 350;
+    const duration = LETTER_FLIP_ANIMATION_DURATION / 2;
     if (result !== GuessResult.NO_GUESS) {
       const timer = setTimeout(() => {
         rotateY.value = withTiming(90, {duration}, () => {

@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useCallback} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
-import {colors} from '../constants';
+import {colors} from '../constants/colors';
 
 const styles = StyleSheet.create({
   container: {

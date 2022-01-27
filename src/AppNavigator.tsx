@@ -4,7 +4,7 @@ import {GameView} from './views/GameView';
 
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {GameDrawerShell} from './views/GameDrawer';
-import {colors} from './constants';
+import {colors} from './constants/colors';
 
 const Drawer = createDrawerNavigator();
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import {AppNavigator} from './src/AppNavigator';
 import Toast, {BaseToast} from 'react-native-toast-message';
-import {colors} from './src/constants';
+import {colors} from './src/constants/colors';
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({

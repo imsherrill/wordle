@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {colors} from '../constants';
+import {colors} from '../constants/colors';
 import {LetterTracker} from '../utils';
 import {onKeyboardButtonPress} from './Keyboard';
 import {RFPercentage} from 'react-native-responsive-fontsize';

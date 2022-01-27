@@ -1,6 +1,3 @@
-export const NUM_LETTERS = 5;
-export const NUM_GUESSES = 6;
-
 export const colors = {
   success: '#538D4E',
   failure: 'maroon',

@@ -3,7 +3,7 @@ import React from 'react';
 import {StatusBar, StyleSheet, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Game} from '../components/Game';
-import {colors} from '../constants';
+import {colors} from '../constants/colors';
 import {GameHeader} from './GameHeader';
 
 const styles = StyleSheet.create({
