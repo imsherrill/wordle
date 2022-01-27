@@ -1,40 +1,39 @@
 import _ from 'lodash';
 import {useCallback} from 'react';
 import {Share} from 'react-native';
+import {WordGuessResult} from '../components/Game';
 import {NUM_GUESSES} from '../constants';
-import {getGuessResult, GuessResult} from '../utils';
+import {GuessResult} from '../utils';
 
-export function useShareGameResultCallback(answer: string, guesses: string[]) {
+export function useShareGameResultCallback(guessResults: WordGuessResult[]) {
   const shareCallback = useCallback(() => {
-    const shareText = buildShareText(answer, guesses);
+    const shareText = buildShareText(guessResults);
     Share.share({
       message: shareText,
     })
       .then(result => console.log(result))
       .catch(errorMsg => console.log(errorMsg));
-  }, [answer, guesses]);
+  }, [guessResults]);
 
   return shareCallback;
 }
 
-function buildShareText(answer: string, guesses: string[]): string {
-  const overviewText = `Wordle ${guesses.length}/${NUM_GUESSES}`;
-  const emojiGameBoard = _.map(guesses, guess => {
-    return buildEmojiGuessRow(answer, guess);
+function buildShareText(guessResults: WordGuessResult[]): string {
+  const overviewText = `Very Peri Wordle ${guessResults.length}/${NUM_GUESSES}`;
+  const emojiGameBoard = _.map(guessResults, guessResult => {
+    return buildEmojiGuessRow(guessResult);
   }).join('\n');
 
   return `${overviewText}\n\n${emojiGameBoard}`;
 }
 
-function buildEmojiGuessRow(answer: string, guess: string | undefined): string {
+function buildEmojiGuessRow(guess?: WordGuessResult): string {
   if (guess === undefined) {
     return '';
   }
 
-  return _.map(guess.split(''), (letter, idx) => {
-    const guessResult = getGuessResult(answer, letter, idx);
-
-    switch (+guessResult) {
+  return _.map(guess, letterResult => {
+    switch (+letterResult.result) {
       case GuessResult.CORRECT:
         return '🟩';
       case GuessResult.IN_WORD:

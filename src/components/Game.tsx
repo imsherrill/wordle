@@ -99,7 +99,7 @@ export function Game() {
     generateLetterMap(),
   );
 
-  const shareScore = useShareGameResultCallback(answer, guesses);
+  const shareScore = useShareGameResultCallback(guessResults);
 
   const navigation = useNavigation();
 

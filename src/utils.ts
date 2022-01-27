@@ -12,6 +12,7 @@ export enum GuessResult {
   NO_GUESS,
 }
 
+// todo: unused?
 export function getGuessResult(
   answer: string,
   letterGuess: string | undefined,
