@@ -13,3 +13,4 @@ todos:
   * if neither of the duplicate letters are in the right position, only the first one is yellow
 * delay after winning/losing before popping up the game results modal
 * streaks/ stats
+* lottie animations?
