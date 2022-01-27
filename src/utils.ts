@@ -103,3 +103,20 @@ export enum LetterTracker {
 export function letterOccurrenceInWord(word: string, letter: string) {
   return (word.match(new RegExp(letter, 'g')) || []).length;
 }
+
+export function firstOccurrenceOfLetterInWord(
+  answer: string,
+  letter: string,
+  index: number,
+): boolean {
+  var indicesOfLetter = [];
+  for (var i = 0; i < answer.length; i++) {
+    if (answer[i] === letter) {
+      indicesOfLetter.push(i);
+    }
+  }
+
+  console.log({indicesOfLetter, index, answer, letter});
+
+  return index >= indicesOfLetter[0];
+}
