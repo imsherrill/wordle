@@ -6,11 +6,14 @@ import {NUM_GUESSES, NUM_LETTERS} from '../constants';
 import _ from 'lodash';
 import {
   AlphabetMap,
-  firstOccurrenceOfLetterInWord,
+  isFirstOccurrenceOfLetterInWord,
   generateLetterMap,
   GuessResult,
+  indicesOfLetterInWord,
   isValidWord,
+  letterOccurrenceInWord,
   LetterTracker,
+  removeLettersAtIndices,
 } from '../utils';
 import {Keyboard} from './Keyboard';
 import {gameResetter} from '../GameResetter';
@@ -66,27 +69,42 @@ function generateWord(): string {
 }
 
 function scoreGuess(guess: string, answer: string): WordGuessResult {
-  return _.map(guess.split(''), (letter, idx) => {
-    let result = GuessResult.INCORRECT;
+  const remainingCorrectLetters = _.countBy(answer.split(''));
 
-    if (answer[idx] === letter) {
-      result = GuessResult.CORRECT;
-    } else if (_.includes(answer, letter)) {
-      if (firstOccurrenceOfLetterInWord(answer, letter, idx)) {
-        // todo: case where the other one is in the correct spot. If theres another occurence then it should be yellow, if not then black
-        result = GuessResult.IN_WORD;
-      } else {
-        result = GuessResult.INCORRECT;
-      }
+  // deal with completely correct letters first
+  const binaryResults = _.map(guess.split(''), (letter, index) => {
+    const inCorrectPlace = answer[index] === letter;
+
+    const result = inCorrectPlace ? GuessResult.CORRECT : GuessResult.INCORRECT;
+    if (inCorrectPlace) {
+      remainingCorrectLetters[letter]--;
     }
 
     return {letter, result};
   });
+
+  // find the ones that are still left in the incorrect places
+  const fullResults = binaryResults;
+  _.forEach(fullResults, letterResult => {
+    const {letter, result} = letterResult;
+    if (result !== GuessResult.CORRECT) {
+      const occurrenceOfLetterRemainingInAnswer =
+        remainingCorrectLetters[letter];
+      if (
+        !_.isNil(occurrenceOfLetterRemainingInAnswer) &&
+        occurrenceOfLetterRemainingInAnswer > 0
+      ) {
+        letterResult.result = GuessResult.IN_WORD;
+        remainingCorrectLetters[letter]--;
+      }
+    }
+  });
+
+  return fullResults;
 }
 
 export function Game() {
-  // const [answer, setAnswer] = useState<string>(generateWord());
-  const [answer, setAnswer] = useState<string>('green');
+  const [answer, setAnswer] = useState<string>(generateWord());
   const [guessCandidate, setGuessCandidate] = useState('');
   const [guesses, setGuesses] = useState<string[]>([]);
   const [guessResults, setGuessResults] = useState<WordGuessResult[]>([]);

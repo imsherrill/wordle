@@ -104,19 +104,43 @@ export function letterOccurrenceInWord(word: string, letter: string) {
   return (word.match(new RegExp(letter, 'g')) || []).length;
 }
 
-export function firstOccurrenceOfLetterInWord(
+export function indicesOfLetterInWord(
   answer: string,
   letter: string,
-  index: number,
-): boolean {
+): number[] {
   var indicesOfLetter = [];
   for (var i = 0; i < answer.length; i++) {
     if (answer[i] === letter) {
       indicesOfLetter.push(i);
     }
   }
+  return indicesOfLetter;
+}
 
-  console.log({indicesOfLetter, index, answer, letter});
+export function isFirstOccurrenceOfLetterInWord(
+  word: string,
+  letter: string,
+  index: number,
+): boolean {
+  var indicesOfLetter = indicesOfLetterInWord(word, letter);
 
-  return index >= indicesOfLetter[0];
+  console.log({
+    indicesOfLetter,
+    index,
+    answer: word,
+    letter,
+    isFirst: index === indicesOfLetter[0],
+  });
+
+  return index === indicesOfLetter[0];
+}
+
+export function removeLettersAtIndices(
+  word: string,
+  indices: number[],
+): string {
+  return _.filter(
+    word.split(''),
+    (letter, index) => !_.includes(indices, index),
+  ).join('');
 }
