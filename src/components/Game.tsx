@@ -189,14 +189,25 @@ export function Game() {
   }, [resetGame]);
 
   useEffect(() => {
+    let timer: NodeJS.Timer | undefined;
     const lastGuess = _.last(guesses);
     if (lastGuess === answer) {
-      setGameState(GameState.VICTORY);
+      timer = setTimeout(() => {
+        setGameState(GameState.VICTORY);
+      }, NUM_LETTERS * 100);
     } else if (_.size(guesses) >= NUM_GUESSES) {
-      setGameState(GameState.LOSS);
+      timer = setTimeout(() => {
+        setGameState(GameState.LOSS);
+      }, NUM_LETTERS * 100);
     } else {
       setGameState(GameState.IN_PROGRESS);
     }
+
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+    };
   }, [guesses, answer]);
 
   return (

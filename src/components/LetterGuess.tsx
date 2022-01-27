@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {StyleSheet, Text} from 'react-native';
 import {colors} from '../constants/colors';
 import {GuessResult} from '../utils';
@@ -9,7 +9,10 @@ import Animated, {
   withTiming,
   runOnJS,
 } from 'react-native-reanimated';
-import {LETTER_FLIP_ANIMATION_DURATION} from '../constants';
+import {
+  LETTER_FLIP_ANIMATION_DURATION,
+  VICTORY_ANIMATION_DURATION,
+} from '../constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -60,34 +63,60 @@ interface LetterGuessProps {
   guess?: string;
   result: GuessResult;
   letterIndex: number;
+  allLettersCorrect: boolean;
 }
 
 export function LetterGuess({
   guess,
   result,
   letterIndex,
+  allLettersCorrect,
 }: LetterGuessProps): JSX.Element {
   const [shouldUseResultStyle, setShouldUseResultStyle] = useState(false);
   const rotateY = useSharedValue<number>(0);
+  const translateY = useSharedValue<number>(0);
   const animatedStyles = useAnimatedStyle(() => {
     return {
-      transform: [{rotateY: `${rotateY.value} deg`}],
+      transform: [
+        {rotateY: `${rotateY.value} deg`},
+        {translateY: translateY.value},
+      ],
     };
   });
 
-  useEffect(() => {
+  const runGuessAnimation = useCallback(() => {
     const duration = LETTER_FLIP_ANIMATION_DURATION / 2;
-    if (result !== GuessResult.NO_GUESS) {
-      const timer = setTimeout(() => {
-        rotateY.value = withTiming(90, {duration}, () => {
-          rotateY.value = -90;
-          runOnJS(setShouldUseResultStyle)(true);
-          rotateY.value = withTiming(0, {duration}, () => {});
-        });
-      }, letterIndex * 50);
+    rotateY.value = withTiming(90, {duration}, () => {
+      rotateY.value = -90;
+      runOnJS(setShouldUseResultStyle)(true);
+      rotateY.value = withTiming(0, {duration}, () => {});
+    });
+  }, [rotateY]);
+
+  const runCorrectAnswerAnimation = useCallback(() => {
+    const duration = VICTORY_ANIMATION_DURATION;
+    const animationHeight = -50;
+    translateY.value = withTiming(animationHeight, {duration}, () => {
+      runOnJS(setShouldUseResultStyle)(true);
+      translateY.value = withTiming(0, {duration}, () => {});
+    });
+  }, [translateY]);
+
+  useEffect(() => {
+    if (allLettersCorrect) {
+      const timer = setTimeout(runCorrectAnswerAnimation, letterIndex * 100);
+      return () => clearTimeout(timer);
+    } else if (result !== GuessResult.NO_GUESS) {
+      const timer = setTimeout(runGuessAnimation, letterIndex * 50);
       return () => clearTimeout(timer);
     }
-  }, [rotateY, result, letterIndex]);
+  }, [
+    result,
+    letterIndex,
+    runGuessAnimation,
+    allLettersCorrect,
+    runCorrectAnswerAnimation,
+  ]);
 
   return (
     <Animated.View

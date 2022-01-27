@@ -4,6 +4,7 @@ import {EMPTY_LETTER_GUESS_RESULT, NUM_LETTERS} from '../constants';
 import {LetterGuess} from './LetterGuess';
 import _ from 'lodash';
 import {WordGuessResult} from './Game';
+import {GuessResult} from '../utils';
 
 const styles = StyleSheet.create({
   container: {
@@ -19,6 +20,10 @@ interface WordGuessProps {
 }
 
 export function WordGuess({guessResult}: WordGuessProps): JSX.Element {
+  const fullyCorrectGuess =
+    guessResult &&
+    _.every(guessResult, lgr => lgr.result === GuessResult.CORRECT);
+
   return (
     <View style={styles.container}>
       {_.times(NUM_LETTERS, i => {
@@ -32,6 +37,7 @@ export function WordGuess({guessResult}: WordGuessProps): JSX.Element {
             guess={letterGuessResult.letter}
             result={letterGuessResult.result}
             letterIndex={i}
+            allLettersCorrect={fullyCorrectGuess}
           />
         );
       })}

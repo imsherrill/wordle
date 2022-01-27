@@ -124,14 +124,6 @@ export function isFirstOccurrenceOfLetterInWord(
 ): boolean {
   var indicesOfLetter = indicesOfLetterInWord(word, letter);
 
-  console.log({
-    indicesOfLetter,
-    index,
-    answer: word,
-    letter,
-    isFirst: index === indicesOfLetter[0],
-  });
-
   return index === indicesOfLetter[0];
 }
 
